@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Celeste-Reinforcement-Learning.iml" filepath="$PROJECT_DIR$/.idea/Celeste-Reinforcement-Learning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Reinforcement-Learning-Celeste/.idea/Reinforcement-Learning-Celeste.iml" filepath="$PROJECT_DIR$/../Reinforcement-Learning-Celeste/.idea/Reinforcement-Learning-Celeste.iml" />
     </modules>
   </component>
 </project>
