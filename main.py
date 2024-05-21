@@ -1,7 +1,11 @@
 import moves
+import time
 
 moves.initialize()
-moves.moveUp(1)
-moves.moveRight(1)
-moves.moveUp(1)
-moves.moveDown(1)
+moves.dash("left")
+moves.dash("up")
+time.sleep(1)
+moves.jump()
+moves.dash("down-right")
+moves.jump()
+
