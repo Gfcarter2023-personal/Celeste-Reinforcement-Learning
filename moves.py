@@ -1,3 +1,4 @@
+import pydirectinput
 import pyautogui
 import time
 
@@ -10,72 +11,74 @@ def initialize():
 
 
 def moveRight(sleep_time):
-    pyautogui.keyDown("right")
+    pydirectinput.keyDown("right")
     time.sleep(sleep_time)
-    pyautogui.keyUp("right")
+    pydirectinput.keyUp("right")
 
 
 def moveLeft(sleep_time):
-    pyautogui.keyDown("left")
+    pydirectinput.keyDown("left")
     time.sleep(sleep_time)
-    pyautogui.keyUp("left")
+    pydirectinput.keyUp("left")
 
 
 def moveUp(sleep_time):
-    pyautogui.keyDown("up")
+    pydirectinput.keyDown("up")
     time.sleep(sleep_time)
-    pyautogui.keyUp("up")
+    pydirectinput.keyUp("up")
 
 
 def moveDown(sleep_time):
-    pyautogui.keyDown("down")
+    pydirectinput.keyDown("down")
     time.sleep(sleep_time)
-    pyautogui.keyUp("down")
+    pydirectinput.keyUp("down")
 
 
 def jump():
-    pyautogui.keyDown("c")
-    time.sleep(0.1)
-    pyautogui.keyUp("c")
-
-def dash():
-    pyautogui.keyDown("x")
+    pydirectinput.keyDown("c")
     time.sleep(1 / 60)
-    pyautogui.keyUp("x")
+    pydirectinput.keyUp("c")
 
-def dashDirection(direction):
+def longJump():
+    pydirectinput.keyDown("c")
+    time.sleep(10 / 60)
+    pydirectinput.keyUp("c")
+
+
+def dash(direction):
     match direction:
         case "up":
-            pyautogui.keyDown("up")
+            pydirectinput.keyDown("up")
         case "up-left":
-            pyautogui.keyDown("up")
-            pyautogui.keyDown("left")
+            pydirectinput.keyDown("up")
+            pydirectinput.keyDown("left")
         case "left":
-            pyautogui.keyDown("left")
+            pydirectinput.keyDown("left")
         case "down-left":
-            pyautogui.keyDown("down")
-            pyautogui.keyDown("left")
+            pydirectinput.keyDown("down")
+            pydirectinput.keyDown("left")
         case "down":
-            pyautogui.keyDown("down")
+            pydirectinput.keyDown("down")
         case "down-right":
-            pyautogui.keyDown("down")
-            pyautogui.keyDown("right")
+            pydirectinput.keyDown("down")
+            pydirectinput.keyDown("right")
         case "right":
-            pyautogui.keyDown("right")
+            pydirectinput.keyDown("right")
         case "up-right":
-            pyautogui.keyDown("up")
-            pyautogui.keyDown("right")
-            dash()
-            pyautogui.keyUp("up")
-            pyautogui.keyUp("left")
-            pyautogui.keyUp("down")
-            pyautogui.keyUp("right")
-
-
-
+            pydirectinput.keyDown("up")
+            pydirectinput.keyDown("right")
+    pydirectinput.keyDown("x")
+    time.sleep(1 / 60)
+    pydirectinput.keyUp("x")
+    pydirectinput.keyUp("up")
+    pydirectinput.keyUp("left")
+    pydirectinput.keyUp("down")
+    pydirectinput.keyUp("right")
 
 
 def grab():
-    return True
+    pydirectinput.keyDown("z")
 
 
+def unGrab():
+    pydirectinput.keyUp("z")
