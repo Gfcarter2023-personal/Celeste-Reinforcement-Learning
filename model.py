@@ -2,7 +2,8 @@ import numpy as np
 import pickle
 import pyautogui
 from jproperties import Properties
-
+import math
+import time
 
 class State:
     def __init__(self, location):
@@ -12,12 +13,34 @@ class State:
         return self.location
 
     def updateLocation(self):
-        self.location = pyautogui.locateOnWindow("Celeste.png")
+        im1 = pyautogui.screenshot()
+        im1.save("assets/screen.png")
+        self.location = pyautogui.locateOnScreen("assets/Celeste.png", im1, confidence=0.55)
 
-    def celesteCoordinates(self):
+    def celesteToPCCoordinates(self, x, y):
         configs = Properties()
-        with open('properties.txt') as read_prop:
+        with open('properties.txt', 'rb') as read_prop:
             configs.load(read_prop)
-        left = (self.location[0] * configs.get("x-scale").data) + configs.get("x-offset").data
-        top = (self.location[1] * configs.get("y-scale").data) + configs.get("y-offset").data
-        return left, top, self.location[2], self.location[3]
+        left = (x * float(configs.get("x-scale").data)) + float(configs.get("x-offset").data)
+        top = (y * float(configs.get("y-scale").data)) + float(configs.get("y-offset").data)
+        return left, top
+
+    def isAllowedAction(self, action):
+        return True
+
+    def giveReward(self):
+        configs = Properties()
+        with open('LocationRewards/room1.txt', 'rb') as read_prop:
+            configs.load(read_prop)
+        rewardVal = 0
+        prop_view = configs.items()
+        self.updateLocation()
+        playerCoordinate = self.locate()
+        for rewards in prop_view:
+            xStr, yStr = rewards[1].data.split()
+            x, y = self.celesteToPCCoordinates(int(xStr), int(yStr))
+            pyautogui.moveTo(x,y)
+            rewardDistance = math.sqrt((int(x) - playerCoordinate[0])**2 + (int(y) - playerCoordinate[1])**2)
+            rewardVal += float(rewards[0])**4 / float(rewardDistance)
+        print(rewardVal)
+        return rewardVal

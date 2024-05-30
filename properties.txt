@@ -1,4 +1,4 @@
-x-scale = 2.5
-y-scale = 2.5
-x-offset = 0
-y-offset = 58
+x-scale=2.5
+y-scale=2.5
+x-offset=0
+y-offset=58
