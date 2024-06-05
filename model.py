@@ -15,7 +15,7 @@ class State:
     def updateLocation(self):
         im1 = pyautogui.screenshot()
         im1.save("assets/screen.png")
-        self.location = pyautogui.locateOnScreen("assets/Celeste.png", im1, confidence=0.55)
+        self.location = pyautogui.locateOnScreen("assets/bubble.png", im1, confidence=0.55)
 
     def celesteToPCCoordinates(self, x, y):
         configs = Properties()
