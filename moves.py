@@ -7,7 +7,8 @@ def initialize():
     windows = pyautogui.getWindowsWithTitle('Celeste')
     for window in windows:
         if window.title == 'Celeste':
-            window.activate()
+            window.maximize()
+
 
 
 def moveRight(sleep_time):
