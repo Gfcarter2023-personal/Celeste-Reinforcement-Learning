@@ -15,11 +15,15 @@ class State:
     def locate(self):
         return self.location
 
-    def findLocation(self):
+    def findLocation(self, oldLocation=(-1, -1, -1, -1)):
         try:
-            self.location = pyautogui.locateOnScreen("assets/Celeste.png", confidence=0.60)
+            if oldLocation == (-1, -1, -1, -1):
+                self.location = pyautogui.locateOnScreen("assets/Celeste.png", confidence=0.60)
+            else:
+                im = pyautogui.screenshot("assets/screen.png", region=(int(oldLocation[0] - 400), int(oldLocation[1] - 400), 800, 800))
+                self.location = pyautogui.locateOnScreen("assets/Celeste.png", confidence=0.60, region=(int(oldLocation[0] - 400), int(oldLocation[1] - 400), 800, 800))
         except pyautogui.ImageNotFoundException:
-            self.location= (-1, -1, -1, -1)
+            self.location = (-1, -1, -1, -1)
 
 
 

@@ -1,18 +1,39 @@
+from gym import Env
+from gym.spaces import Discrete, Box
+import numpy as np
+import random
 import model
-class Env:
-    def __init__(self):
-        self.state = model.State()
-        self.reward = self.state.giveReward()
-        self.done = self.isDone()
-        self.info = None
 
-    def isDone(self):
-        if self.reward < 0:
-            return True
+class SpecialEnv(Env):
+    def __init__(self, state):
+        #Actions we can take
+        self.action_space = Discrete(26)
+        # State array
+        self.observation_space = [Box(low=np.arras([0], high=np.array([3840]))), Box(low=np.arras([0], high=np.array([2160])))]
+        # Set start state
+        self.state = state.findLocation()
+        # Set play length
+        self.length = 60
+
+    def step(self, action, state):
+        # Apply Action
+        if action.contains('jump'):
+            doJump = True
+        if action.contains('dash'):
+            doDash = True
+        self.state = state.findLocation()
+        self.length -= 1
+        reward = state.giveReward()
+
+        if self.length <=0:
+            done = True
         else:
-            return False
+            done = False
+        info = {}
+        return self.state, reward, done, info
 
-    def step(self):
-        return 1
-
-    def action_space(self):
+    def reset(self, state):
+        # Resets the state
+        self.state = state.findLocation()
+        self.length = 60
+        return self.state
