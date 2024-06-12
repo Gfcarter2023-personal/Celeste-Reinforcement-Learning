@@ -11,70 +11,103 @@ def initialize():
 
 
 
-def moveRight(sleep_time):
+def right(sleep_time, doDash=False, doJump =False):
     pydirectinput.keyDown("right")
+    if doDash:
+        dash()
+    if doJump:
+        jump()
     time.sleep(sleep_time)
     pydirectinput.keyUp("right")
 
 
-def moveLeft(sleep_time):
+def left(sleep_time, doDash=False, doJump =False):
     pydirectinput.keyDown("left")
+    if doDash:
+        dash()
+    if doJump:
+        jump()
     time.sleep(sleep_time)
     pydirectinput.keyUp("left")
 
 
-def moveUp(sleep_time):
+def up(sleep_time, doDash=False, doJump =False):
     pydirectinput.keyDown("up")
+    if doDash:
+        dash()
+    if doJump:
+        jump()
     time.sleep(sleep_time)
     pydirectinput.keyUp("up")
 
 
-def moveDown(sleep_time):
+def down(sleep_time, doDash=False, doJump =False):
     pydirectinput.keyDown("down")
+    if doDash:
+        dash()
+    if doJump:
+        jump()
     time.sleep(sleep_time)
     pydirectinput.keyUp("down")
 
+def upRight(sleep_time, doDash=False, doJump =False):
+    pydirectinput.keyDown("right")
+    pydirectinput.keyDown("up")
+    if doDash:
+        dash()
+    if doJump:
+        jump()
+    time.sleep(sleep_time)
+    pydirectinput.keyUp("right")
+    pydirectinput.keyUp("up")
 
-def jump():
+
+def upLeft(sleep_time, doDash=False, doJump =False):
+    pydirectinput.keyDown("left")
+    pydirectinput.keyDown("up")
+    if doDash:
+        dash()
+    if doJump:
+        jump()
+    time.sleep(sleep_time)
+    pydirectinput.keyUp("left")
+    pydirectinput.keyUp("up")
+
+
+def downRight(sleep_time, doDash=False, doJump =False):
+    pydirectinput.keyDown("right")
+    pydirectinput.keyDown("down")
+    if doDash:
+        dash()
+    if doJump:
+        jump()
+    time.sleep(sleep_time)
+    pydirectinput.keyUp("right")
+    pydirectinput.keyUp("down")
+
+
+def downLeft(sleep_time, doDash=False, doJump =0):
+    pydirectinput.keyDown("left")
+    pydirectinput.keyDown("down")
+    if doDash:
+        dash()
+    if doJump > 0:
+        jump(doJump)
+    time.sleep(sleep_time)
+    pydirectinput.keyUp("left")
+    pydirectinput.keyUp("down")
+
+
+def jump(jumpStr):
     pydirectinput.keyDown("c")
-    time.sleep(1 / 60)
+    time.sleep(jumpStr / 60)
     pydirectinput.keyUp("c")
 
-def longJump():
-    pydirectinput.keyDown("c")
-    time.sleep(10 / 60)
-    pydirectinput.keyUp("c")
 
-
-def dash(direction):
-    match direction:
-        case "up":
-            pydirectinput.keyDown("up")
-        case "up-left":
-            pydirectinput.keyDown("up")
-            pydirectinput.keyDown("left")
-        case "left":
-            pydirectinput.keyDown("left")
-        case "down-left":
-            pydirectinput.keyDown("down")
-            pydirectinput.keyDown("left")
-        case "down":
-            pydirectinput.keyDown("down")
-        case "down-right":
-            pydirectinput.keyDown("down")
-            pydirectinput.keyDown("right")
-        case "right":
-            pydirectinput.keyDown("right")
-        case "up-right":
-            pydirectinput.keyDown("up")
-            pydirectinput.keyDown("right")
+def dash():
     pydirectinput.keyDown("x")
     time.sleep(1 / 60)
     pydirectinput.keyUp("x")
-    pydirectinput.keyUp("up")
-    pydirectinput.keyUp("left")
-    pydirectinput.keyUp("down")
-    pydirectinput.keyUp("right")
 
 
 def grab():
@@ -83,3 +116,6 @@ def grab():
 
 def unGrab():
     pydirectinput.keyUp("z")
+
+def reset():
+    pydirectinput.press('f8')
