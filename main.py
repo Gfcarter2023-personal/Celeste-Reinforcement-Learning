@@ -4,16 +4,18 @@ import model
 import environment
 import gym
 import actions
+from PIL import Image
 
 moves.initialize()
-state = model.State()
-
-x, y = celesteToPCCoordinates(60, 570)
-state.findLocation()
-print(state.locate())
-moves.right(0.5)
+x, y = model.celesteToPCCoordinates(60, 570)
+state = model.State((x,y))
 state.findLocation(state.locate())
 print(state.locate())
+moves.right(0.2)
+state.findLocation(state.locate())
+print(state.locate())
+
+
 
 def main():
     env = environment.Env()

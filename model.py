@@ -8,8 +8,9 @@ import math
 import time
 import cv2
 
+
 class State:
-    def __init__(self, location=(0,0)):
+    def __init__(self, location=(0, 0)):
         self.location = location
 
     def locate(self):
@@ -20,21 +21,14 @@ class State:
             if oldLocation == (-1, -1, -1, -1):
                 self.location = pyautogui.locateOnScreen("assets/Celeste.png", confidence=0.60)
             else:
-                im = pyautogui.screenshot("assets/screen.png", region=(int(oldLocation[0] - 400), int(oldLocation[1] - 400), 800, 800))
-                self.location = pyautogui.locateOnScreen("assets/Celeste.png", confidence=0.60, region=(int(oldLocation[0] - 400), int(oldLocation[1] - 400), 800, 800))
+                im = pyautogui.screenshot("assets/screen.png",
+                                          region=(int(oldLocation[0] - 400), int(oldLocation[1] - 400), 800, 800))
+                self.location = pyautogui.locateOnScreen("assets/Celeste.png", confidence=0.60, region=(
+                int(oldLocation[0] - 400), int(oldLocation[1] - 400), 800, 800))
         except pyautogui.ImageNotFoundException:
             self.location = (-1, -1, -1, -1)
 
 
-
-
-    def celesteToPCCoordinates(self, x, y):
-        configs = Properties()
-        with open('properties.txt', 'rb') as read_prop:
-            configs.load(read_prop)
-        left = (x * float(configs.get("x-scale").data)) + float(configs.get("x-offset").data)
-        top = (y * float(configs.get("y-scale").data)) + float(configs.get("y-offset").data)
-        return left, top
 
     def isAllowedAction(self, action):
         return True
@@ -55,6 +49,13 @@ class State:
                 xStr, yStr = rewards[1].data.split()
                 x, y = self.celesteToPCCoordinates(int(xStr), int(yStr))
                 rewardDistance = math.sqrt((int(x) - playerCoordinate[0]) ** 2 + (int(y) - playerCoordinate[1]) ** 2)
-                rewardVal += 100 * float(rewards[0])/ float(rewardDistance)
+                rewardVal += 100 * float(rewards[0]) / float(rewardDistance)
             return rewardVal
 
+def celesteToPCCoordinates(x, y):
+    configs = Properties()
+    with open('properties.txt', 'rb') as read_prop:
+        configs.load(read_prop)
+    left = (x * float(configs.get("x-scale").data)) + float(configs.get("x-offset").data)
+    top = (y * float(configs.get("y-scale").data)) + float(configs.get("y-offset").data)
+    return left, top
